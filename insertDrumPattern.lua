@@ -11,8 +11,6 @@ local function insertDrumPart(drumPatternIndex, drumPartName, drumPartNoteValue)
 	local drumPattern = getDrumPattern(drumPatternIndex, drumPartName)
 	local numberOfGridPositions = getNumberOfGridPositions()
 
-	print(numberOfGridPositions)
-
 	for i = 0, numberOfGridPositions-1 do
 
 		local drumPatternIndex = i % 16 + 1
