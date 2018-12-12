@@ -17,4 +17,8 @@ function incrementDrumPattern()
 	setDrumPatternIndex(drumPatternIndex)
 end
 
-incrementDrumPattern()
+startUndoBlock()
+
+	incrementDrumPattern()
+
+endUndoBlock("incremented drum pattern")

@@ -16,4 +16,9 @@ function decrementDrumPattern()
 	setDrumPatternIndex(drumPatternIndex)
 end
 
-decrementDrumPattern()
+
+startUndoBlock()
+
+	decrementDrumPattern()
+
+endUndoBlock("decremented drum pattern")

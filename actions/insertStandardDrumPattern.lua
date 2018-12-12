@@ -1,4 +1,9 @@
 local workingDirectory = reaper.GetResourcePath() .. "/Scripts/DrumPatterns"
 require(workingDirectory .. "/insertDrumPattern")
 
-insertDrumPattern(1)
+
+startUndoBlock()
+
+	insertDrumPattern(1)
+
+endUndoBlock("inserted standard drum pattern")

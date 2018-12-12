@@ -18,6 +18,11 @@ function mediaItemStartPositionPPQ()
   return reaper.MIDI_GetPPQPosFromProjTime(activeTake(), mediaItemStartPosition())
 end
 
+function mediaItemStartPositionQN()
+  return reaper.MIDI_GetProjQNFromPPQPos(activeTake(), mediaItemStartPositionPPQ())
+end
+
+
 local function mediaItemLength()
   return reaper.GetMediaItemInfo_Value(activeMediaItem(), "D_LENGTH")
 end
@@ -25,12 +30,10 @@ end
 function gridUnitLength()
 
   local gridLengthQN = reaper.MIDI_GetGrid(activeTake())
-  local gridLengthPPQ = reaper.MIDI_GetPPQPosFromProjQN(activeTake(), gridLengthQN)
-  return reaper.MIDI_GetProjTimeFromPPQPos(activeTake(), gridLengthPPQ)
+  local mediaItemPlusGridLengthPPQ = reaper.MIDI_GetPPQPosFromProjQN(activeTake(), mediaItemStartPositionQN() + gridLengthQN)
+  local mediaItemPlusGridLength = reaper.MIDI_GetProjTimeFromPPQPos(activeTake(), mediaItemPlusGridLengthPPQ)
+  return mediaItemPlusGridLength - mediaItemStartPosition()
 end
-
-
-
 
 function getNumberOfNotes()
 
@@ -75,7 +78,7 @@ end
 
 
 function getNumberOfGridPositions()
-  return math.ceil(mediaItemLength()/gridUnitLength())
+  return math.floor(mediaItemLength()/gridUnitLength() + 0.5)
 end
 
 function insertMidiNote(startPosition, note, isSnareBeat)

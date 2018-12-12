@@ -2,10 +2,14 @@ local workingDirectory = reaper.GetResourcePath() .. "/Scripts/DrumPatterns"
 require(workingDirectory .. "/insertDrumPattern")
 
 
-local currentGridSize = getCurrentGridSize()
-setGridSizeToSixteenthNotes()
+startUndoBlock()
 
-local drumPatternIndex = 1
-insertHihats(drumPatternIndex)
+	local currentGridSize = getCurrentGridSize()
+	setGridSizeToSixteenthNotes()
 
-setGridSize(currentGridSize)
+	local drumPatternIndex = 1
+	insertHihats(drumPatternIndex)
+
+	setGridSize(currentGridSize)
+
+endUndoBlock("inserted hihats")
