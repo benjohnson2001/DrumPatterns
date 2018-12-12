@@ -16,8 +16,10 @@ local function insertDrumPart(drumPatternIndex, drumPartName, drumPartNoteValue)
 		local drumPatternIndex = i % 16 + 1
 		local noteExists = drumPattern[drumPatternIndex]
 
+		local isSnareBeat = (drumPatternIndex == 5) or (drumPatternIndex == 13)
+
 		if noteExists then
-			insertMidiNote(startPosition, drumPartNoteValue)
+			insertMidiNote(startPosition, drumPartNoteValue, isSnareBeat)
 		end
 
 		startPosition = startPosition + gridUnitLength()
@@ -32,7 +34,7 @@ local function insertSnares(drumPatternIndex)
 	insertDrumPart(drumPatternIndex, 'snare', 2)
 end
 
-local function insertHihats(drumPatternIndex)
+function insertHihats(drumPatternIndex)
 	insertDrumPart(drumPatternIndex, 'hihat', 3)
 end
 

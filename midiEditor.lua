@@ -78,7 +78,7 @@ function getNumberOfGridPositions()
   return math.ceil(mediaItemLength()/gridUnitLength())
 end
 
-function insertMidiNote(startPosition, note)
+function insertMidiNote(startPosition, note, isSnareBeat)
 
   local keepNotesSelected = false
   local noteIsMuted = false
@@ -87,6 +87,11 @@ function insertMidiNote(startPosition, note)
 
   local channel = 0
   local velocity = 96
+
+  if isSnareBeat then
+    velocity = 127
+  end
+
   local noSort = false
 
   reaper.MIDI_InsertNote(activeTake(), keepNotesSelected, noteIsMuted, startPositionPPQ, endPositionPpq, channel, note, velocity, noSort)
